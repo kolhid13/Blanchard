@@ -103,6 +103,14 @@ $(document).ready(function(){
             scrollbarMaxSize: 28
         })
     });
+    if (window.matchMedia('(max-width: 425px)').matches){
+    document.querySelectorAll('.header-nav').forEach(el =>{
+        new SimpleBar(el, {
+            autoHide: false,
+            scrollbarMaxSize: 28
+        })
+    });
+    }
 
 // селект в галлерее
     var element = document.querySelector('#SelectPainting');
@@ -175,9 +183,6 @@ $(document).ready(function(){
             infinite: false,
             dots: false,
             autoplay: false,
-            grid: {
-            rows: 2,
-            },
             pagination: {
                 el: ".swiper-gallery__pagination",
                 type: "fraction",
@@ -187,27 +192,33 @@ $(document).ready(function(){
                 prevEl: ".swiper-gallery-button__prev",
             },
             breakpoints: {
-                1200: {
+                1920: {
                     slidesPerView: 3,
                     slidesPerGroup: 12,
                     spaceBetween: 50,
                 },
+                1024: {
+                    slidesPerView: 2,
+                    slidesPerGroup: 12,
+                    spaceBetween: 35,
+                },
                 768: {
                     slidesPerView: 2,
-                    slidesPerGroup: 6,
+                    slidesPerGroup: 12,
                     spaceBetween: 34,
                 },
                 425: {
                     slidesPerView: 1,
+                    slidesPerGroup: 6,
+                    },
+                320: {
+                    slidesPerView: 1,
                     slidesPerGroup: 2,
-                    grid: {
-                        rows: 1,
-                        },
                     },
                 },
         });
         // модальные окна
-        const modalBtns =  document.querySelectorAll('.gallery-slider__image');
+        const modalBtns =  document.querySelectorAll('.gallery-slider__slide');
         modalBtns.forEach((el) =>{
             el.addEventListener('click', (e) => {
                 let path = e.currentTarget.getAttribute('data-path');
@@ -225,87 +236,18 @@ $(document).ready(function(){
             });
         });
 
-        // чекбокс на 320px
-        function checkboxToggle() {
-            let btn = document.querySelector(".checkbox__title");
-            let labels = document.querySelectorAll(".checkbox__label");
-            let listLabels = document.querySelector(".checkbox__list");
-            btn.addEventListener("click", toggleSpoiler);
-            btn.addEventListener("keyup", function(e) {
-            console.log(e.key);
-                if (e.code === "Enter") {
-                    toggleSpoiler();
-                }
-            });
-            
-            
-        function toggleSpoiler() {
-            if (!listLabels.classList.contains("checklist-active")) {
-            listLabels.classList.add("checklist-active");
-            labels.forEach(item => {
-            // item.classList.add("checkbox--label-active");
-                animationItem(item, "checkbox__label-active", "animation-test", "add");
-            })
-            } else {
-            listLabels.classList.remove("checklist-active");
-            labels.forEach(item => {
-                if (item.querySelector(".real__checkbox").checked) {
-                animationItem(item, "checkbox__label-active", "animation-test", "add");
-                } else {
-                animationItem(item, "checkbox__label-active", "animation-test", "remove");
-                }
-                });
-            }
-            labels.forEach(item => {
-            item.addEventListener("click", function() {
-                    if (!listLabels.classList.contains("checklist-active")) {
-                    animationItem(this, "checkbox__label-active", "animation-test", "remove");
-                    }
-                });
-            })
-        }
-        function animationItem(item, class1, class2, f) {
-        if (f === "add") {
-            item.classList.add(class1);
-            setTimeout(function() {
-            item.classList.add(class2)
-            }, 100);    
-        } else {
-            item.classList.remove(class2);
-            setTimeout(function() {
-            item.classList.remove(class1)
-            }, 300);
-            }    
-        }    
-        }
-        checkboxToggle();
 
 
-    // табы в каталоге
-    var tabs = document.getElementsByClassName("catalog-tab");
-    var actives = document.getElementsByClassName("tab-active");
-    for (i = 0; tabs.length > i; i++){
-        tabs[i].onclick = function(){
-            var currentActive = actives[0];
-            if (currentActive)
-            currentActive.classList.remove("tab-active");
+// акардионы
 
-            if (currentActive !==this)
-            this.classList.add("tab-active");
-        };
-    }
-
-    document.querySelectorAll('.tabs__btn').forEach(function(tabsBtn){
-        tabsBtn.addEventListener('click', function(event){
-            const path = event.currentTarget.dataset.path
-            document.querySelectorAll('.tab__content').forEach(function(tabContent){
-            tabContent.classList.remove('tab-content-active')
-            })
-        document.querySelector(`[data-target="${path}"]`).classList.add('tab-content-active')
-        })
+    $('#accordion-italy').accordion({
+        collapsible: true,
+        heightStyle: "content",
     });
 
-    document.querySelectorAll('.tabs-btn__artist').forEach(function(tabsBtnArt){
+    // табы в каталоге
+
+    document.querySelectorAll('.artist-name-focus').forEach(function(tabsBtnArt){
         tabsBtnArt.addEventListener('click', function(event){
             const path = event.currentTarget.dataset.path
 
@@ -315,100 +257,63 @@ $(document).ready(function(){
             document.querySelector(`[data-target="${path}"]`).classList.add('tab-artist-active')
         })
     });
-
-
-
-// акардионы
-    $('#accordion-france').accordion({
-        collapsible: true,
-        heightStyle: "content",
-    });
-
-    $('#accordion-germany').accordion({
-        collapsible: true,
-        heightStyle: "content",
-    });
-    $('#accordion-italy').accordion({
-        collapsible: true,
-        heightStyle: "content",
-    });
-    $('#accordion-russia').accordion({
-        collapsible: true,
-        heightStyle: "content",
-    });
-    $('#accordion-belgium').accordion({
-        collapsible: true,
-        heightStyle: "content",
-    });
-    
-    // раскрыте евентов
-    document.querySelectorAll('.event__btn').forEach(function(tabsBtn){
-        tabsBtn.addEventListener('click', function(event){
-            const eventContDop = document.querySelector('.event__content')
-            document.querySelectorAll('.event__btn').forEach(function(eventBtn){
-                eventBtn.classList.add('event-btn__active')
-            })            
-            eventContDop.classList.add('show-all')
-        })
-    });
     // евент слайдер
-    if (window.matchMedia('(max-width: 425px)').matches){
+
         new Swiper('.event__slider', {
-                
+            
             breakpoints: {
+                1920: {
+                    slidesPerView: 3,
+                    slidesPerGroup: 1,
+                    spaceBetween: 50,
+                    
+                },
+                1024: {
+                    slidesPerView: 3,
+                    slidesPerGroup: 1,
+                    spaceBetween: 27,
+                    
+                },
+                768: {
+                    slidesPerView: 2,
+                    slidesPerGroup: 1,
+                    spaceBetween: 32,
+                },
+                425: {
+                    slidesPerView: 1,
+                    slidesPerGroup: 1,
+                    spaceBetween: 15,
+                    },
                 320: {
                     slidesPerView: 1,
                     slidesPerGroup: 1,
-                    spaceBetween: 27,
-                    grid: {
-                        rows: 1,
-                        },
-                    },    
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                type: 'bullets',
-                clickable: true
-            },
-        });
-    }
-        // слайдер публикаций
-        if (window.matchMedia('(min-width: 767px)').matches){
-            new Swiper('.publications__slider', {   
-                slidesPerView: 3,
-                slidesPerGroup: 2,
-                spaceBetween: 50,
-                breakpoints: {
-                    1200: {
-                        slidesPerView: 2,
-                        slidesPerGroup: 2,
-                        spaceBetween: 50,
-                        },
-                    767: {
-                        slidesPerView: 2,
-                        slidesPerGroup: 2,
-                        spaceBetween: 17,
-                        },
-                },
+                    spaceBetween: 15,
+                    },
+                },   
                 pagination: {
-                    el: ".swiper-publications__pagination",
-                    type: "fraction",
+                    el: ".event-slider__pagination",
+                    clickable: true,
+                    
                 },
                 navigation: {
-                    nextEl: ".swiper-publications-button__next",
-                    prevEl: ".swiper-publications-button__prev",
+                    nextEl: ".swiper-event-button__next",
+                    prevEl: ".swiper-event-button__prev",
                 },
-            });    
-        }
+        });
+    
+
         // слайдер проектов   
     new Swiper('.projects__slider', {
-        slidesPerView: 3,
-        slidesPerGroup: 3,
-        spaceBetween: 50,
         breakpoints: {
-        1200: {
+        1920:{
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+            spaceBetween: 50,
+            },
+        1024: {
             slidesPerView: 2,
             slidesPerGroup: 2,
+            spaceBetween: 50,
             },
         768: {
             slidesPerView: 2,
@@ -426,62 +331,21 @@ $(document).ready(function(){
             },
     });
 
-   
-
-
-
     document.querySelectorAll('.checkbox__title').forEach(function(eventBtn){
         eventBtn.addEventListener('click', function(event){
                 eventBtn.classList.toggle('is-open')
             })
         })
 
-        // тултипы
-
-        document.querySelectorAll('.tooltip').forEach(function(eventBtn){
-            eventBtn.addEventListener('click', function(event){
-                    eventBtn.classList.toggle('_active')
-                })
-    
-            })
-            document.querySelectorAll('.tooltip-md').forEach(function(eventBtn){
-                eventBtn.addEventListener('click', function(event){
-                        eventBtn.classList.toggle('_active')
-                    })
-    
-                })
-            document.querySelectorAll('.tooltip-xs').forEach(function(eventBtn){
-                eventBtn.addEventListener('click', function(event){
-                        eventBtn.classList.toggle('_active')
-                })
-    
-            })
-    
-        tippy('.tooltip', {
-            content: 'Global content',
-            trigger: 'click',
-            theme: 'tooltip',
-            offset: [0, 12],
-            maxWidth: 264,
-            });
-            tippy('.tooltip-md', {
-            content: 'Global content',
-            arrow: false,
-            trigger: 'click',
-            theme: 'tooltip',
-            offset: [0, 12],
-            maxWidth: 264,
-            });
-    
-            tippy('.tooltip-xs', {
-            content: 'Global content',
-            arrow: false,
-            trigger: 'click',
-            theme: 'tooltip-xs',
-            offset: [0, 12],
-            maxWidth: 264,
-            });
-
+            tippy('.tooltip', {
+                content: 'Global content',
+                trigger: 'click',
+                theme: 'tooltip',
+                offset: [0, 12],
+                arrow: false,
+                maxWidth: 264,
+                });
+        
 
 // валидация формы
         let selector = document.querySelectorAll('input[type="tel"');
@@ -525,11 +389,7 @@ $(document).ready(function(){
     function init(){
         // Создание карты.
         var myMap = new ymaps.Map("map", {
-            center: [55.762242, 37.617078],
-            zoom: 14
-        });
-        var myMap1 = new ymaps.Map("map-1", {
-            center: [55.761695, 37.596965],
+            center: [55.758468, 37.601088],
             zoom: 14
         });
         var myGeoObject1 = new ymaps.GeoObject({
@@ -546,15 +406,8 @@ $(document).ready(function(){
         iconImageOffset: [-3, -42]
         });
 
-    var myPlacemark1 = new ymaps.Placemark([55.758468, 37.601088], {}, {
-    iconLayout:  'default#image',
-    iconImageHref: 'point__map.svg',
-    iconImageSize: [20, 20],
-    iconImageOffset: [-3, -42]
-    });
-    
+
     myMap.geoObjects.add(myPlacemark); 
-    myMap1.geoObjects.add(myPlacemark1); 
     }
 
 
@@ -585,7 +438,7 @@ $(document).ready(function(){
     }                
 
     if (window.matchMedia('(max-width: 425px)').matches){
-        const catlogLinks = document.querySelectorAll('.artist-name__item[data-goto');
+        const catlogLinks = document.querySelectorAll('.artist-name-focus[data-goto');
         if(catlogLinks.length > 0) {
             catlogLinks.forEach(catlogLink => {
                 catlogLink.addEventListener('click', catlogLinksClick);

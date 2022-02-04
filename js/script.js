@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     // раскрытие бургера
     const iconMenu = document.querySelector('.header__burger');
-    const menuBody = document.querySelector('.menu__header');
+    const menuBody = document.querySelector('.menu-header');
     if (iconMenu){
         iconMenu.addEventListener('click', function(e){
             document.body.classList.toggle('_lock');
@@ -24,10 +24,10 @@ $(document).ready(function(){
     }
     
     // раскрытие формы поиска
-    const iconSearch = document.querySelector('.header-search__icon');
-    const searchWrapper = document.querySelector('.header-search__form');
+    const iconSearch = document.querySelector('.header-search-icon');
+    const searchWrapper = document.querySelector('.header-search-form');
     const btnSearch = document.querySelector('.btn-search');
-    const searchWrapperClose = document.querySelector('.header-search-form__close');
+    const searchWrapperClose = document.querySelector('.header-search-form-close');
     const toggleMenu = function(){
         searchWrapper.classList.toggle('_active');
     }
@@ -59,11 +59,11 @@ $(document).ready(function(){
     });
 
     // раскрытие выпадающего списка
-    document.querySelectorAll(".hero--menu-btn").forEach(item => {
+    document.querySelectorAll(".hero-menu-btn").forEach(item => {
         item.addEventListener("click", function() {
         let btn = this;
         let dropdown = this.parentElement.querySelector(".sub-menu-wraper");
-        let arrow = this.parentElement.querySelector(".hero-menu__arrow");
+        let arrow = this.parentElement.querySelector(".hero-menu-arrow");
         document.querySelectorAll(".list--item__btn").forEach(el => {
         if (el != btn) {
             el.classList.remove("active--btn");
@@ -83,21 +83,21 @@ $(document).ready(function(){
     
     document.addEventListener("click", function(e) {
     let target = e.target;
-    if (!target.closest(".hero-menu__list")) {
+    if (!target.closest(".hero-menu-list")) {
         document.querySelectorAll(".sub-menu-wraper").forEach(el => {
             el.classList.remove("active-list--item");
         })
         document.querySelectorAll(".list--item__btn").forEach(el => {
             el.classList.remove("active--btn");
         });
-        document.querySelectorAll(".hero-menu__arrow").forEach(el => {
+        document.querySelectorAll(".hero-menu-arrow").forEach(el => {
             el.classList.remove("_active");
         });
     }
     })
 
     // симплбар
-    document.querySelectorAll('.sub-menu__list').forEach(el =>{
+    document.querySelectorAll('.sub-menu-list').forEach(el =>{
         new SimpleBar(el, {
             autoHide: false,
             scrollbarMaxSize: 28
@@ -184,51 +184,51 @@ $(document).ready(function(){
             dots: false,
             autoplay: false,
             pagination: {
-                el: ".swiper-gallery__pagination",
+                el: ".swiper-gallery-pagination",
                 type: "fraction",
             },
             navigation: {
-                nextEl: ".swiper-gallery-button__next",
-                prevEl: ".swiper-gallery-button__prev",
+                nextEl: ".swiper-gallery-button-next",
+                prevEl: ".swiper-gallery-button-prev",
             },
             breakpoints: {
                 1920: {
                     slidesPerView: 3,
-                    slidesPerGroup: 12,
+                    slidesPerGroup: 6,
                     spaceBetween: 50,
                 },
                 1024: {
                     slidesPerView: 2,
-                    slidesPerGroup: 12,
+                    slidesPerGroup: 6,
                     spaceBetween: 35,
                 },
                 768: {
                     slidesPerView: 2,
-                    slidesPerGroup: 12,
+                    slidesPerGroup: 6,
                     spaceBetween: 34,
                 },
                 425: {
                     slidesPerView: 1,
-                    slidesPerGroup: 6,
+                    slidesPerGroup: 1,
                     },
                 320: {
                     slidesPerView: 1,
-                    slidesPerGroup: 2,
+                    slidesPerGroup: 1,
                     },
                 },
         });
         // модальные окна
-        const modalBtns =  document.querySelectorAll('.gallery-slider__slide');
+        const modalBtns =  document.querySelectorAll('.gallery-slider-slide');
         modalBtns.forEach((el) =>{
             el.addEventListener('click', (e) => {
                 let path = e.currentTarget.getAttribute('data-path');
                 document.querySelector(`[data-target="${path}"]`).classList.add('modals--visible');
-                document.querySelectorAll('.modal__shadow').forEach(function(modalsShadow){
-                    modalsShadow.classList.add('modal__shadow-visible');
+                document.querySelectorAll('.modal-shadow').forEach(function(modalsShadow){
+                    modalsShadow.classList.add('modal-shadow-visible');
                 })
             })
         });
-        document.querySelectorAll('.modal__close').forEach(function(modalsClose){
+        document.querySelectorAll('.modal-close').forEach(function(modalsClose){
             modalsClose.addEventListener('click', function(event){
             document.querySelectorAll('.modals').forEach(function(modalContent){                           
                 modalContent.classList.remove('modals--visible');                            
@@ -257,6 +257,23 @@ $(document).ready(function(){
             document.querySelector(`[data-target="${path}"]`).classList.add('tab-artist-active')
         })
     });
+        //  активный писатель
+        const items = document.querySelectorAll('.artist-name-focus');
+
+            for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+
+            item.addEventListener("click", () => {
+                for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                item.classList.remove("artist-name-active");
+                }
+
+                item.classList.add("artist-name-active");
+            });
+            }
+        
+
     // евент слайдер
 
         new Swiper('.event__slider', {
@@ -270,13 +287,13 @@ $(document).ready(function(){
                 },
                 1024: {
                     slidesPerView: 3,
-                    slidesPerGroup: 1,
+                    slidesPerGroup: 3,
                     spaceBetween: 27,
                     
                 },
                 768: {
                     slidesPerView: 2,
-                    slidesPerGroup: 1,
+                    slidesPerGroup: 2,
                     spaceBetween: 32,
                 },
                 425: {
@@ -291,13 +308,13 @@ $(document).ready(function(){
                     },
                 },   
                 pagination: {
-                    el: ".event-slider__pagination",
+                    el: ".event-slider-pagination",
                     clickable: true,
                     
                 },
                 navigation: {
-                    nextEl: ".swiper-event-button__next",
-                    prevEl: ".swiper-event-button__prev",
+                    nextEl: ".swiper-event-button-next",
+                    prevEl: ".swiper-event-button-prev",
                 },
         });
     
@@ -326,8 +343,8 @@ $(document).ready(function(){
             },
         },
         navigation: {
-            nextEl: ".swiper-projects-button__next",
-            prevEl: ".swiper-projects-button__prev",
+            nextEl: ".swiper-projects-button-next",
+            prevEl: ".swiper-projects-button-prev",
             },
     });
 

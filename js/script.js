@@ -226,6 +226,7 @@ $(document).ready(function(){
                 document.querySelectorAll('.modal-shadow').forEach(function(modalsShadow){
                     modalsShadow.classList.add('modal-shadow-visible');
                 })
+                document.body.classList.add('disable-scroll');
             })
         });
         document.querySelectorAll('.modal-close').forEach(function(modalsClose){
@@ -233,7 +234,9 @@ $(document).ready(function(){
             document.querySelectorAll('.modals').forEach(function(modalContent){                           
                 modalContent.classList.remove('modals--visible');                            
                 })
+                document.body.classList.remove('disable-scroll');
             });
+                
         });
 
 
@@ -396,7 +399,29 @@ $(document).ready(function(){
             });
         }
         
-        validateForms('.form', {name: {required: true, minLength: 3, maxLength: 15}, tel: {required: true,}}, {name: {minLength:'Имя должно быть длинее 3 символов', maxLength:'Имя должно быть короче 15 символов',}, tel: 'неверный формат',},'.thanks_popup', 'send goal');
+        validateForms('.form', 
+        {name: 
+            {
+                required: true, 
+                minLength: 3, 
+                maxLength: 15, 
+                strength: 
+                    {custom: '/^[a-zA-Zа-яА-Я]/'}
+                }, 
+        tel: 
+            {
+                required: true,
+            }
+        }, 
+        {name: 
+            {
+                required:'Недопустимый формат',
+                minLength:'Имя должно быть длинее 3 символов', 
+                maxLength:'Имя должно быть короче 15 символов', 
+                strength: 'Недопустимый формат',
+            },
+             tel: 'Недопустимый формат',
+            },'.thanks_popup', 'send goal');
         
         
         

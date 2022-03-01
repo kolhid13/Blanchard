@@ -239,7 +239,12 @@ $(document).ready(function(){
                 
         });
 
-
+            // симплбар моджальных окон
+            // document.querySelectorAll('.modal').forEach(el =>{
+            //     new SimpleBar(el, {
+            //         autoHide: false,
+            //     })
+            // });
 
 // акардионы
 

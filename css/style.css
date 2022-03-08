@@ -1027,16 +1027,16 @@ cursor: pointer;
 
 .modal-overrlay{
   z-index: 5;
-
+  height: 95vh;
+  max-height: 500px;
   } 
 
 .modal {
   display: flex;
   justify-content: space-between;
   background: var(--color-white);
-  min-height: 501px;
-  width: 902px;
-  max-width: 905px;
+  overflow: auto;
+  height: 100%;
   z-index: 20;
 } 
 
@@ -1082,11 +1082,11 @@ cursor: pointer;
 }
 
 .modal-content {
-  max-width: 455px;
+  max-width: 500px;
   text-align: left;
   padding-top: 123px;
-  padding-left: 5px;
-  padding-right: 40px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .modal-autor {
@@ -1563,6 +1563,7 @@ cursor: pointer;
 
 
 .artist-name-focus{
+  position: relative;
   cursor: pointer;
   padding-right: 10px;
   transition: all .4s ease-in-out;
@@ -2736,16 +2737,15 @@ transition: all .4s ease-in-out;
   height: 315px;
 }
 .gallery-slider-image img {
-  width: 280px;
   height: 315px;
 }
+.modal-overrlay{
+  z-index: 5;
+  height: 95vh;
+  max-height: 595px;
+  } 
 
 
-.modal {
-  min-height: 594px;
-  width: 594px;
-  overflow-y: auto;
-}
 
 
 .modal-close {
@@ -2754,10 +2754,10 @@ transition: all .4s ease-in-out;
 }
 
 .modal-content {
-  width: 315px;
+  width: 330px;
   text-align: left;
   padding-top: 123px;
-  padding-left: 35px;
+  padding-left: 50px;
   padding-right: 10px;
 }
 .modal-years{
@@ -3193,15 +3193,19 @@ margin-bottom: 39px;
 .gallery-slider-slide {
   height: 330px;
 }
-.modal {
-  min-height: 595px;
-  width: 668px;
-}
+
+.modal-overrlay{
+  z-index: 5;
+  height: 95vh;
+  max-height: 595px;
+  } 
+  
+
 
 .modal-content {
-  width: 319px;
+  width: 366px;
   padding-top: 123px;
-  padding-left: 0px;
+  padding-left: 50px;
   padding-right: 50px;
 }
 
@@ -3709,13 +3713,18 @@ margin-bottom: 37px;
   bottom: -637px;
   width: 100%;
 }
-.modal {
+.modal-overrlay{
+  z-index: 5;
+  height: 95vh;
+  max-height: 600px;
+  } 
+
+
+.modal{
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 600px;
-  width: 290px;
 }
-
 
 .modal-close {
   top: -186px;
